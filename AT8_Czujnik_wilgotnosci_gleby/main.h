@@ -12,6 +12,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-
+#include "my_ADC.h"
 
 #endif /* MAIN_H_ */
