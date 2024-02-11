@@ -9,8 +9,13 @@
 #ifndef MY_ADC_H_
 #define MY_ADC_H_
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
+void my_ADC_Setup(void);
 
+uint16_t my_ADC_Result(void);
 
+static inline void my_ADC_Start(void){ ADCSRA |= 1 << ADSC; }
 
 #endif /* MY_ADC_H_ */
