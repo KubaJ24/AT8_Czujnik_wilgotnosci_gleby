@@ -3,11 +3,11 @@ AT8_Czujnik_wilgotnosci_gleby.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000003e  00000000  00000000  00000054  2**1
+  0 .text         00000040  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  00000092  2**0
+  1 .data         00000000  00800060  00800060  00000094  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  00000092  2**0
+  2 .comment      00000030  00000000  00000000  00000094  2**0
                   CONTENTS, READONLY
   3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000000c4  2**2
                   CONTENTS, READONLY
@@ -17,13 +17,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   6 .debug_abbrev 00000497  00000000  00000000  00000629  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000143  00000000  00000000  00000ac0  2**0
+  7 .debug_line   00000149  00000000  00000000  00000ac0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000024  00000000  00000000  00000c04  2**2
+  8 .debug_frame  00000024  00000000  00000000  00000c0c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000002fc  00000000  00000000  00000c28  2**0
+  9 .debug_str    000002fc  00000000  00000000  00000c30  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000010  00000000  00000000  00000f24  2**0
+ 10 .debug_ranges 00000010  00000000  00000000  00000f2c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -57,22 +57,23 @@ Disassembly of section .text:
   2e:	de bf       	out	0x3e, r29	; 62
   30:	cd bf       	out	0x3d, r28	; 61
   32:	02 d0       	rcall	.+4      	; 0x38 <main>
-  34:	02 c0       	rjmp	.+4      	; 0x3a <_exit>
+  34:	03 c0       	rjmp	.+6      	; 0x3c <_exit>
 
 00000036 <__bad_interrupt>:
   36:	e4 cf       	rjmp	.-56     	; 0x0 <__vectors>
 
 00000038 <main>:
 
-#include "main.h"
-
 
 int main(void)
 {
-  38:	ff cf       	rjmp	.-2      	; 0x38 <main>
+    
+	sei();					// Global Interrupt Enable
+  38:	78 94       	sei
+  3a:	ff cf       	rjmp	.-2      	; 0x3a <main+0x2>
 
-0000003a <_exit>:
-  3a:	f8 94       	cli
+0000003c <_exit>:
+  3c:	f8 94       	cli
 
-0000003c <__stop_program>:
-  3c:	ff cf       	rjmp	.-2      	; 0x3c <__stop_program>
+0000003e <__stop_program>:
+  3e:	ff cf       	rjmp	.-2      	; 0x3e <__stop_program>

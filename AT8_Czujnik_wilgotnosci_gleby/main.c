@@ -10,9 +10,11 @@
 
 int main(void)
 {
-    /* Replace with your application code */
-    while (1) 
-    {
+    
+	sei();					// Global Interrupt Enable
+	
+    while(1){
+		
     }
 }
 
