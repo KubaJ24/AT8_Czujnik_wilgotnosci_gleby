@@ -14,6 +14,7 @@ volatile uint16_t ADC_Conv_result = 0;
 */
 void ADC_vect(void){
 	ADC_Conv_result = my_ADC_Result();
+	ADCSRA |= 1 << ADIF;					// Wyzerowanie rz¹dania przerwania
 }
 
 int main(void)
