@@ -3,31 +3,31 @@ AT8_Czujnik_wilgotnosci_gleby.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000092  00000000  00000000  00000074  2**1
+  0 .text         000000ae  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  00000106  2**0
+  1 .data         00000000  00800060  00800060  00000122  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000002  00800060  00800060  00000106  2**0
+  2 .bss          00000002  00800060  00800060  00000122  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000106  2**0
+  3 .comment      00000030  00000000  00000000  00000122  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000138  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000154  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000050  00000000  00000000  00000174  2**0
+  5 .debug_aranges 00000078  00000000  00000000  00000190  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000068d  00000000  00000000  000001c4  2**0
+  6 .debug_info   0000073c  00000000  00000000  00000208  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000005ad  00000000  00000000  00000851  2**0
+  7 .debug_abbrev 00000616  00000000  00000000  00000944  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000002ac  00000000  00000000  00000dfe  2**0
+  8 .debug_line   00000375  00000000  00000000  00000f5a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000068  00000000  00000000  000010ac  2**2
+  9 .debug_frame  0000009c  00000000  00000000  000012d0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000036b  00000000  00000000  00001114  2**0
+ 10 .debug_str    00000391  00000000  00000000  0000136c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000006f  00000000  00000000  0000147f  2**0
+ 11 .debug_loc    0000006f  00000000  00000000  000016fd  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000030  00000000  00000000  000014ee  2**0
+ 12 .debug_ranges 00000048  00000000  00000000  0000176c  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -36,7 +36,7 @@ Disassembly of section .text:
    0:	12 c0       	rjmp	.+36     	; 0x26 <__ctors_end>
    2:	21 c0       	rjmp	.+66     	; 0x46 <__bad_interrupt>
    4:	20 c0       	rjmp	.+64     	; 0x46 <__bad_interrupt>
-   6:	1f c0       	rjmp	.+62     	; 0x46 <__bad_interrupt>
+   6:	26 c0       	rjmp	.+76     	; 0x54 <__vector_3>
    8:	1e c0       	rjmp	.+60     	; 0x46 <__bad_interrupt>
    a:	1d c0       	rjmp	.+58     	; 0x46 <__bad_interrupt>
    c:	1c c0       	rjmp	.+56     	; 0x46 <__bad_interrupt>
@@ -74,8 +74,8 @@ Disassembly of section .text:
   3c:	a2 36       	cpi	r26, 0x62	; 98
   3e:	b2 07       	cpc	r27, r18
   40:	e1 f7       	brne	.-8      	; 0x3a <.do_clear_bss_loop>
-  42:	08 d0       	rcall	.+16     	; 0x54 <main>
-  44:	24 c0       	rjmp	.+72     	; 0x8e <_exit>
+  42:	09 d0       	rcall	.+18     	; 0x56 <main>
+  44:	32 c0       	rjmp	.+100    	; 0xaa <_exit>
 
 00000046 <__bad_interrupt>:
   46:	dc cf       	rjmp	.-72     	; 0x0 <__vectors>
@@ -87,80 +87,114 @@ Disassembly of section .text:
 */
 void ADC_vect(void){
 	ADC_Conv_result = my_ADC_Result();
-  48:	1b d0       	rcall	.+54     	; 0x80 <my_ADC_Result>
+  48:	29 d0       	rcall	.+82     	; 0x9c <my_ADC_Result>
   4a:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
   4e:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
   52:	08 95       	ret
 
-00000054 <main>:
+00000054 <__vector_3>:
+}
+
+/*
+ Funkcja obs³ugi przewania TIMER2 od porównania
+*/
+void TIMER2_COMP_vect(void){
+  54:	08 95       	ret
+
+00000056 <main>:
 }
 
 int main(void)
 {
     
 	my_ADC_Setup();
-  54:	05 d0       	rcall	.+10     	; 0x60 <my_ADC_Setup>
+  56:	12 d0       	rcall	.+36     	; 0x7c <my_ADC_Setup>
+	TIMER2_CONF();			// Czy to dobre miejsce?
+  58:	05 d0       	rcall	.+10     	; 0x64 <TIMER2_CONF>
 	
 	sei();					// Global Interrupt Enable
-  56:	78 94       	sei
+  5a:	78 94       	sei
 
 void my_ADC_Setup(void);
 
 uint16_t my_ADC_Result(void);
 
 static inline void my_ADC_Start(void){ ADCSRA |= 1 << ADSC; }
-  58:	86 b1       	in	r24, 0x06	; 6
-  5a:	80 64       	ori	r24, 0x40	; 64
-  5c:	86 b9       	out	0x06, r24	; 6
-  5e:	ff cf       	rjmp	.-2      	; 0x5e <main+0xa>
+  5c:	86 b1       	in	r24, 0x06	; 6
+  5e:	80 64       	ori	r24, 0x40	; 64
+  60:	86 b9       	out	0x06, r24	; 6
+  62:	ff cf       	rjmp	.-2      	; 0x62 <main+0xc>
 
-00000060 <my_ADC_Setup>:
+00000064 <TIMER2_CONF>:
+ */ 
+
+#include "my_7seg.h"
+
+void TIMER2_CONF(void){
+	TCCR2 |= 1 << WGM21;									// CTC
+  64:	85 b5       	in	r24, 0x25	; 37
+  66:	88 60       	ori	r24, 0x08	; 8
+  68:	85 bd       	out	0x25, r24	; 37
+	TCCR2 |= (1 << CS22) | (1 << CS21) | (1 << CS20);		// Prescaler -> clk/1024
+  6a:	85 b5       	in	r24, 0x25	; 37
+  6c:	87 60       	ori	r24, 0x07	; 7
+  6e:	85 bd       	out	0x25, r24	; 37
+	OCR2 = 109;												// Górna wartoœæ licznika
+  70:	8d e6       	ldi	r24, 0x6D	; 109
+  72:	83 bd       	out	0x23, r24	; 35
+	TIMSK |= 1 << OCF2;										// W³¹czenie przerwania od porównania 
+  74:	89 b7       	in	r24, 0x39	; 57
+  76:	80 68       	ori	r24, 0x80	; 128
+  78:	89 bf       	out	0x39, r24	; 57
+  7a:	08 95       	ret
+
+0000007c <my_ADC_Setup>:
  */ 
 
 #include "my_ADC.h"
 
 void my_ADC_Setup(void){
 	ADCSRA |= 1 << ADEN;										// ADC Enable
-  60:	86 b1       	in	r24, 0x06	; 6
-  62:	80 68       	ori	r24, 0x80	; 128
-  64:	86 b9       	out	0x06, r24	; 6
+  7c:	86 b1       	in	r24, 0x06	; 6
+  7e:	80 68       	ori	r24, 0x80	; 128
+  80:	86 b9       	out	0x06, r24	; 6
 	ADCSRA |= 1 << ADIE;										// ADC Interrupt Enable -> end of conversion
-  66:	86 b1       	in	r24, 0x06	; 6
-  68:	88 60       	ori	r24, 0x08	; 8
-  6a:	86 b9       	out	0x06, r24	; 6
+  82:	86 b1       	in	r24, 0x06	; 6
+  84:	88 60       	ori	r24, 0x08	; 8
+  86:	86 b9       	out	0x06, r24	; 6
 	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);		// Prescaler -> 128
-  6c:	86 b1       	in	r24, 0x06	; 6
-  6e:	87 60       	ori	r24, 0x07	; 7
-  70:	86 b9       	out	0x06, r24	; 6
+  88:	86 b1       	in	r24, 0x06	; 6
+  8a:	87 60       	ori	r24, 0x07	; 7
+  8c:	86 b9       	out	0x06, r24	; 6
 	ADMUX |= 1 << REFS0;										// Voltage reference -> AVcc
-  72:	87 b1       	in	r24, 0x07	; 7
-  74:	80 64       	ori	r24, 0x40	; 64
-  76:	87 b9       	out	0x07, r24	; 7
-  78:	86 b1       	in	r24, 0x06	; 6
-  7a:	80 64       	ori	r24, 0x40	; 64
-  7c:	86 b9       	out	0x06, r24	; 6
-  7e:	08 95       	ret
+  8e:	87 b1       	in	r24, 0x07	; 7
+  90:	80 64       	ori	r24, 0x40	; 64
+  92:	87 b9       	out	0x07, r24	; 7
+  94:	86 b1       	in	r24, 0x06	; 6
+  96:	80 64       	ori	r24, 0x40	; 64
+  98:	86 b9       	out	0x06, r24	; 6
+  9a:	08 95       	ret
 
-00000080 <my_ADC_Result>:
+0000009c <my_ADC_Result>:
 
 uint16_t my_ADC_Result(void){
     uint16_t loval = 0;
     uint16_t hival = 0;
     uint16_t result = 0;
     loval = ADCL;
-  80:	24 b1       	in	r18, 0x04	; 4
+  9c:	24 b1       	in	r18, 0x04	; 4
     hival = ADCH;
-  82:	85 b1       	in	r24, 0x05	; 5
-  84:	90 e0       	ldi	r25, 0x00	; 0
+  9e:	85 b1       	in	r24, 0x05	; 5
+  a0:	90 e0       	ldi	r25, 0x00	; 0
     result = (hival<<8) | loval; 
-  86:	98 2f       	mov	r25, r24
-  88:	88 27       	eor	r24, r24
+  a2:	98 2f       	mov	r25, r24
+  a4:	88 27       	eor	r24, r24
     return result;
-  8a:	82 2b       	or	r24, r18
-  8c:	08 95       	ret
+  a6:	82 2b       	or	r24, r18
+  a8:	08 95       	ret
 
-0000008e <_exit>:
-  8e:	f8 94       	cli
+000000aa <_exit>:
+  aa:	f8 94       	cli
 
-00000090 <__stop_program>:
-  90:	ff cf       	rjmp	.-2      	; 0x90 <__stop_program>
+000000ac <__stop_program>:
+  ac:	ff cf       	rjmp	.-2      	; 0xac <__stop_program>

@@ -16,10 +16,18 @@ void ADC_vect(void){
 	ADC_Conv_result = my_ADC_Result();
 }
 
+/*
+ Funkcja obs³ugi przewania TIMER2 od porównania
+*/
+void TIMER2_COMP_vect(void){
+	
+}
+
 int main(void)
 {
     
 	my_ADC_Setup();
+	TIMER2_CONF();			// Czy to dobre miejsce?
 	
 	sei();					// Global Interrupt Enable
 	
