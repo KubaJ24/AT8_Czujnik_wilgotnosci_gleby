@@ -9,6 +9,7 @@
 
 volatile uint16_t ADC_Conv_result = 0;
 
+
 /*
  Funkcja obs³ugi przewania ADC - koniec przetwarzania
 */
