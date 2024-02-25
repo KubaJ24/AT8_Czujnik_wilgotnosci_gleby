@@ -4,5 +4,7 @@
 
 main.c
 
+my_7seg.c
+
 my_ADC.c
 

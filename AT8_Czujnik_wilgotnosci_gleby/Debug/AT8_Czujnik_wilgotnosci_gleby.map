@@ -12,6 +12,16 @@ Discarded input sections
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
+ .text          0x00000000        0x0 my_7seg.o
+ .data          0x00000000        0x0 my_7seg.o
+ .bss           0x00000000        0x0 my_7seg.o
+ .debug_info    0x00000000       0x56 my_7seg.o
+ .debug_abbrev  0x00000000       0x26 my_7seg.o
+ .debug_aranges
+                0x00000000       0x18 my_7seg.o
+ .debug_line    0x00000000       0x1a my_7seg.o
+ .debug_str     0x00000000      0x1b4 my_7seg.o
+ .comment       0x00000000       0x31 my_7seg.o
  .text          0x00000000        0x0 my_ADC.o
  .data          0x00000000        0x0 my_ADC.o
  .bss           0x00000000        0x0 my_ADC.o
@@ -64,6 +74,7 @@ Linker script and memory map
 
 LOAD E:/Microchip Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega8a/avr4/crtatmega8a.o
 LOAD main.o
+LOAD my_7seg.o
 LOAD my_ADC.o
 START GROUP
 LOAD e:/microchip studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr4\libm.a

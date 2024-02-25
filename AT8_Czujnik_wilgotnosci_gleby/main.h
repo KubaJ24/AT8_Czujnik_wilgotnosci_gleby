@@ -13,5 +13,6 @@
 #include <avr/interrupt.h>
 
 #include "my_ADC.h"
+#include "my_7seg.h"
 
 #endif /* MAIN_H_ */
