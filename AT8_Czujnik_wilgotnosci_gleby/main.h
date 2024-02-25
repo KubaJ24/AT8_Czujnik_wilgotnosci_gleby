@@ -11,8 +11,14 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/atomic.h>
 
 #include "my_ADC.h"
 #include "my_7seg.h"
+
+uint8_t Map_Result(uint16_t Result){
+	uint8_t Mapped_Result = (99 / 670) * Result;
+	return Mapped_Result;
+}
 
 #endif /* MAIN_H_ */

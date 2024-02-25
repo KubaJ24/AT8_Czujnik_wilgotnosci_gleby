@@ -10,7 +10,8 @@ my_7seg.d my_7seg.o: .././my_7seg.c .././my_7seg.h \
  e:\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
  e:\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  e:\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
- e:\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h
+ e:\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
+ e:\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\atomic.h
 
 .././my_7seg.h:
 
@@ -37,3 +38,5 @@ e:\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.
 e:\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h:
 
 e:\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
+
+e:\microchip\ studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\util\atomic.h:
